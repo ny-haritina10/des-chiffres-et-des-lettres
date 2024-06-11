@@ -1,3 +1,5 @@
+// app.controller.js
+
 app.controller('GameController', ['$scope', '$interval', 'GameService', function($scope, $interval, GameService) {
     $scope.randomNumber = null;
     $scope.randomNumberList = [];
