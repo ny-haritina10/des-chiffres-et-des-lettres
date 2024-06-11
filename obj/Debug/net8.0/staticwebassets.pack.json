@@ -1,0 +1,53 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-01.css",
+      "PackagePath": "staticwebassets\\css\\style-01.css"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-02.css",
+      "PackagePath": "staticwebassets\\css\\style-02.css"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-03.css",
+      "PackagePath": "staticwebassets\\css\\style-03.css"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-04.css",
+      "PackagePath": "staticwebassets\\css\\style-04.css"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\js\\app.controller.js",
+      "PackagePath": "staticwebassets\\js\\app.controller.js"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\js\\app.module.js",
+      "PackagePath": "staticwebassets\\js\\app.module.js"
+    },
+    {
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\js\\app.service.js",
+      "PackagePath": "staticwebassets\\js\\app.service.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.game.props",
+      "PackagePath": "build\\game.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.game.props",
+      "PackagePath": "buildMultiTargeting\\game.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.game.props",
+      "PackagePath": "buildTransitive\\game.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.game.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

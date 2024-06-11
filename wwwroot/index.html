@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Random Number Game</title>
+    <link rel="stylesheet" href="./css/style-04.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.module.js"></script>
+    <script src="js/app.controller.js"></script>
+    <script src="js/app.service.js"></script>
+</head>
+<body ng-controller="GameController">
+    <button ng-click="getRandomNumberList()">Get Random Number and List</button>
+    <p>Target Number: {{ targetNumber }}</p>
+    <div class="random-number-list">
+        <div class="number-ball" ng-repeat="num in randomNumberList track by $index">{{ num }}</div>
+    </div>
+
+    <h3>Timer</h3>
+    <p class="timer" ng-show="timerRunning">Time left: {{ timeLeft }} seconds</p>
+
+    <h3>Player Inputs</h3>
+    <div>
+        <label for="player1">Player 1:</label>
+        <input type="number" id="player1" ng-model="player1Number">
+        <button ng-click="submitPlayer1()">Submit Player 1</button>
+    </div>
+    <div>
+        <label for="player2">Player 2:</label>
+        <input type="number" id="player2" ng-model="player2Number">
+        <button ng-click="submitPlayer2()">Submit Player 2</button>
+    </div>
+
+    <h3>Result</h3>
+    <div class="winner-announcement" ng-if="winner">
+        Player with the closest number: {{ winner }}
+    </div>
+
+    <div ng-if="combinationInputVisible">
+        <h3>Enter Combination: {{ winner }}</h3>
+        <input type="text" ng-model="combination" ng-change="updateCombination(combination)">
+        <button ng-click="checkCombination()">Submit Combination</button>
+    </div>
+
+    <div class="winner-announcement">
+        {{ actualWinner }}
+    </div>
+</body>
+</html>
