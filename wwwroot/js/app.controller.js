@@ -2,7 +2,10 @@
 
 app.controller('GameController', ['$scope', '$interval', 'GameService', function($scope, $interval, GameService) {
     $scope.randomNumber = null;
-    $scope.randomNumberList = [];
+    //$scope.randomNumberList = Array(7).fill(null); // Array to hold 7 random numbers
+    $scope.randomNumberList = [78, 4, 7, 5, 26, 35, 4];
+    
+    $scope.combinations = []; // IA combinations
 
     $scope.targetNumber = null;
 
@@ -19,64 +22,99 @@ app.controller('GameController', ['$scope', '$interval', 'GameService', function
 
     $scope.actualWinner = null;
 
-    $scope.timeLeft = 30;           // timer set to 30 seconds
+    $scope.timeLeft = 60; // timer set to 60 seconds
+
     $scope.timerRunning = false;
 
+    $scope.randomNumbersVisible = false; // Variable to control visibility of random numbers
+    $scope.targetNumberVisible = false; // Variable to control visibility of target number
+
+    $scope.isPlayerVsIA = false; // Variable to track if the game is against IA
+
     let timer;
-    let firstSubmitter = null;      // track who submitted first
+    let firstSubmitter = null; // track who submitted first
+
+    // function to validate numbers in the list
+    const validateRandomNumbers = (numbers) => {
+        return numbers.every(num => num >= 1 && num <= 100);
+    };
+
+    // function to validate the target number
+    const validateTargetNumber = (number) => {
+        return number >= 1 && number <= 1000;
+    };
 
     // retrieve the random number from backend and start the game
-    $scope.getRandomNumberList = function() {
-        GameService.getRandomNumberList().then(function(response) {
-            $scope.randomNumber = response.data.randomNumber;
-            $scope.randomNumberList = response.data.randomNumberList;
+    $scope.startGame = function(mode) {
+        if (!validateRandomNumbers($scope.randomNumberList)) {
+            alert("All random numbers must be between 1 and 100.");
+            return;
+        }
 
-            console.log('Random Number List:', $scope.randomNumberList);
+        if (!validateTargetNumber($scope.randomNumber)) {
+            alert("The target number must be between 1 and 1000.");
+            return;
+        }
 
-            $scope.targetNumber = $scope.randomNumber;
+        $scope.targetNumber = $scope.randomNumber;
+        $scope.combinationInputVisible = false;
+        $scope.actualWinner = null;
+        $scope.winner = null;
 
-            $scope.combinationInputVisible = false;
-            $scope.actualWinner = null;
+        $scope.player1Number = null;
+        $scope.player2Number = null;
 
-            $scope.winner = null;
+        $scope.player1Submitted = false;
+        $scope.player2Submitted = false;
 
-            $scope.player1Number = null;
-            $scope.player2Number = null;
+        $scope.combination = "";
+        firstSubmitter = null; // reset first submitter
 
-            $scope.player1Submitted = false;
-            $scope.player2Submitted = false;
+        $scope.randomNumbersVisible = true; // Show random numbers
+        $scope.targetNumberVisible = true; // Show target number
+        $scope.isPlayerVsIA = (mode === 'PVI'); // Set the game mode
 
-            $scope.combination = "";
-            firstSubmitter = null;     // reset first submitter
+        $scope.startTimer();
 
-            $scope.startTimer();
-        }, function(error) {
-            console.error('Error fetching random number list:', error);
-        });
+        if ($scope.isPlayerVsIA) {
+
+            // call backend to get AI's combinations
+            GameService.getAICombinations($scope.targetNumber, $scope.randomNumberList).then(function(response) {
+                console.log('AI Combinations Response:', response.data); // debug
+                $scope.combinations = response.data.map(item => ({
+                    value: item.value,
+                    expression: item.expression
+                }));
+
+                $scope.player2Number = $scope.combinations[0].value;
+                $scope.submitPlayer2();
+            });            
+        }
     };
 
     // handle timer functionality
     $scope.startTimer = function() {
-        $scope.timeLeft = 30;
+        $scope.timeLeft = 60;
+
+        console.log("Time left: " + $scope.timeLeft);
+
         $scope.timerRunning = true;
         if (angular.isDefined(timer)) $interval.cancel(timer);
 
         timer = $interval(function() {
-
             // timer still running
             if ($scope.timeLeft > 0) {
-                $scope.timeLeft--;    // decrease timer (compte à rebours)  
-            } 
-            
+                $scope.timeLeft--; // decrease timer (compte à rebours)
+            }
             // time is up
             else {
-                $scope.stopTimer();  
+                $scope.stopTimer();
                 $scope.checkTimeout();
             }
         }, 1000);
     };
 
-    // stop timer 
+    // stop timer
     $scope.stopTimer = function() {
         if (angular.isDefined(timer)) {
             $interval.cancel(timer);
@@ -86,13 +124,21 @@ app.controller('GameController', ['$scope', '$interval', 'GameService', function
 
     // handle player 1 submit
     $scope.submitPlayer1 = function() {
+        if ($scope.player1Number === null || $scope.player1Number === undefined) {
+            alert("Player 1 must enter a number before submitting.");
+            return;
+        }
         $scope.player1Submitted = true;
         if (firstSubmitter === null) firstSubmitter = 'Player 1';
         $scope.checkWinner();
     };
 
-    // handle player 2 submit
+    // handle player 2 submit with AI combination logic
     $scope.submitPlayer2 = function() {
+        if ($scope.player2Number === null || $scope.player2Number === undefined) {
+            alert("Player 2 must enter a number before submitting.");
+            return;
+        }
         $scope.player2Submitted = true;
         if (firstSubmitter === null) firstSubmitter = 'Player 2';
         $scope.checkWinner();
@@ -112,27 +158,33 @@ app.controller('GameController', ['$scope', '$interval', 'GameService', function
     // winner manager
     $scope.checkWinner = function() {
         if ($scope.player1Submitted && $scope.player2Submitted && $scope.targetNumber !== null) {
-            $scope.stopTimer();     // when all players have submitted, stop the timer
+            $scope.stopTimer();         // when all players have submitted, stop the timer
 
-            // calculate difference from target number 
+            // calculate difference from target number
             let diff1 = Math.abs($scope.targetNumber - $scope.player1Number);
             let diff2 = Math.abs($scope.targetNumber - $scope.player2Number);
 
-            // player 1 has the closest number 
             if (diff1 < diff2) {
                 $scope.winner = 'Player 1';
-                $scope.combinationInputVisible = true;      // show input to insert combination
-            } 
-
-            // player 2 has the closest number             
-            else if (diff2 < diff1) {
-                $scope.winner = 'Player 2';
-                $scope.combinationInputVisible = true;      // show input to insert combination
+                $scope.combinationInputVisible = true; // show input to insert combination
             } 
             
-            // same number
+            else if (diff2 < diff1) {
+                $scope.winner = 'Player 2';
+                $scope.combinationInputVisible = true; // show input to insert combination
+
+                if ($scope.isPlayerVsIA) {
+                    // Fetch AI combination if AI is the winner
+                    GameService.getAICombination($scope.targetNumber, $scope.randomNumberList).then(function(response) {
+                        console.log('AI Combination Response:', response.data); // debug
+                        $scope.combination = response.data.combination;
+                        $scope.checkCombination(); // auto-submit the combination for AI
+                    });
+                }
+            } 
+            
             else {
-                $scope.winner = firstSubmitter;             // set winner to the first submitter
+                $scope.winner = firstSubmitter;         // set winner to the first submitter
                 $scope.combinationInputVisible = true;      // show input to insert combination
             }
         }
@@ -186,8 +238,8 @@ app.controller('GameController', ['$scope', '$interval', 'GameService', function
         }
 
         try {
-            let result = eval(expression);      // evaluate combination
-            let winnerNumber = $scope.winner === 'Player 1' ? $scope.player1Number : $scope.player2Number;      // get the closest number
+            let result = eval(expression); // evaluate combination
+            let winnerNumber = $scope.winner === 'Player 1' ? $scope.player1Number : $scope.player2Number; // get the closest number
 
             if (result === winnerNumber) {
                 $scope.actualWinner = 'Valid combination, ' + $scope.winner + ' is the winner!';

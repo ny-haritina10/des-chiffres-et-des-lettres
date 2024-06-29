@@ -9,6 +9,7 @@ namespace game.Controllers
     public class GameController : ControllerBase
     {
         private readonly Game game;
+        private IA ia;
 
         public GameController()
         {
@@ -30,14 +31,31 @@ namespace game.Controllers
         public IActionResult EvaluateCombination([FromBody] EvaluateCombinationRequest request)
         {
             bool isValid = game.IsCombinationValid(request.Combination, request.RandomNumberList);
-
             return Ok(new { isValid });
+        }
+
+        [HttpPost("getAICombinations")]
+        public IActionResult GetAICombinations([FromBody] AINumberRequest request)
+        {
+            ia = new IA(request.RandomNumberList, request.TargetNumber);
+            ia.evaluate();
+            
+            var closestValues = ia.getClosestValues()
+                .Select(v => new { value = v.value, expression = v.expression })
+                .ToList();
+            return Ok(closestValues);
         }
     }
 
     public class EvaluateCombinationRequest
     {
         public string Combination { get; set; }
+        public List<int> RandomNumberList { get; set; }
+    }
+
+    public class AINumberRequest
+    {
+        public int TargetNumber { get; set; }
         public List<int> RandomNumberList { get; set; }
     }
 }

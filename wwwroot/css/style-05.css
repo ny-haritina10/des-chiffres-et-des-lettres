@@ -1,0 +1,82 @@
+/* Global styles */
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    color: #FFD700;
+    text-shadow: 2px 2px #000000;
+}
+
+.input-container {
+    margin: 20px 0;
+}
+
+.input-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="number"],
+input[type="text"] {
+    background-color: #333333;
+    color: #FFFFFF;
+    border: 2px solid #FFD700;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    width: 200px;
+}
+
+button {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #00BFFF;
+}
+
+.timer {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.winner-announcement {
+    background-color: #FF4500;
+    color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+.ai-number {
+    color: #00FF00;
+}
+
+/* Add some space around the main sections */
+.input-container, .timer, .winner-announcement, .combinationInputVisible {
+    margin-bottom: 30px;
+}

@@ -19,8 +19,8 @@ public class Game
         {
             randomNumbers.Add(GenerateRandomNumber(minValue, maxValue));
         }
-
-        return new List<int> { 11, 45, 45, 45, 123, 12 };
+        return randomNumbers;
+        //return new List<int> { 11, 45, 45, 45, 123, 12 };
     }
 
     public bool IsCombinationValid(string combination, List<int> randomNumberList)
@@ -46,10 +46,61 @@ public class Game
             var result = (int)new System.Data.DataTable().Compute(combination, null);
             return result == int.Parse(combination);
         }
-        
         catch
         {
             return false;
         }
+    }
+
+    public int GenerateAINumber(int targetNumber, List<int> randomNumberList)
+    {
+        int closestNumber = randomNumberList[0];
+        int minDifference = Math.Abs(targetNumber - closestNumber);
+
+        foreach (var number in randomNumberList)
+        {
+            int currentDifference = Math.Abs(targetNumber - number);
+            if (currentDifference < minDifference)
+            {
+                minDifference = currentDifference;
+                closestNumber = number;
+            }
+        }
+
+        return closestNumber;
+    }
+
+
+    public string GenerateAICombination(int targetNumber, List<int> randomNumberList)
+    {
+        // Use dynamic programming to find the closest combination
+        int n = randomNumberList.Count;
+        var dp = new Dictionary<int, List<int>>();
+        dp[0] = new List<int>();
+
+        foreach (var number in randomNumberList)
+        {
+            var newEntries = new Dictionary<int, List<int>>();
+            foreach (var kvp in dp)
+            {
+                int newSum = kvp.Key + number;
+                if (newSum <= targetNumber)
+                {
+                    var newList = new List<int>(kvp.Value) { number };
+                    if (!dp.ContainsKey(newSum) || dp[newSum].Count > newList.Count)
+                    {
+                        newEntries[newSum] = newList;
+                    }
+                }
+            }
+            foreach (var entry in newEntries)
+            {
+                dp[entry.Key] = entry.Value;
+            }
+        }
+
+        // Find the sum that is closest to the target number
+        int closestSum = dp.Keys.OrderBy(sum => Math.Abs(targetNumber - sum)).FirstOrDefault();
+        return string.Join(" + ", dp[closestSum]);
     }
 }

@@ -1,6 +1,5 @@
 // app.service.js
 
-
 app.factory('GameService', ['$http', function($http) {
     var baseUrl = '/api/Game';
 
@@ -10,6 +9,9 @@ app.factory('GameService', ['$http', function($http) {
         },
         evaluateCombination: function(combination, randomNumberList) {
             return $http.post(baseUrl + '/evaluateCombination', { combination: combination, randomNumberList: randomNumberList });
+        },
+        getAICombinations: function(targetNumber, randomNumberList) {  // nouvelle méthode
+            return $http.post(baseUrl + '/getAICombinations', { targetNumber: targetNumber, randomNumberList: randomNumberList });
         }
     };
 }]);

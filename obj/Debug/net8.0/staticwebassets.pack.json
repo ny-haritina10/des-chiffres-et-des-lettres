@@ -1,20 +1,8 @@
 {
   "Files": [
     {
-      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-01.css",
-      "PackagePath": "staticwebassets\\css\\style-01.css"
-    },
-    {
-      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-02.css",
-      "PackagePath": "staticwebassets\\css\\style-02.css"
-    },
-    {
-      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-03.css",
-      "PackagePath": "staticwebassets\\css\\style-03.css"
-    },
-    {
-      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-04.css",
-      "PackagePath": "staticwebassets\\css\\style-04.css"
+      "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\css\\style-05.css",
+      "PackagePath": "staticwebassets\\css\\style-05.css"
     },
     {
       "Id": "D:\\Studies\\ITU\\S4\\INF - Programmation\\AngularJS-C#\\des-chiffres-et-des-lettres\\game\\wwwroot\\index.html",

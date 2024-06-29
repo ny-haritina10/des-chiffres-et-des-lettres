@@ -2,18 +2,33 @@
 <html ng-app="myApp">
 <head>
     <title>Random Number Game</title>
-    <link rel="stylesheet" href="./css/style-04.css">
+    <link rel="stylesheet" href="./css/style-05.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/app.module.js"></script>
     <script src="js/app.controller.js"></script>
     <script src="js/app.service.js"></script>
 </head>
 <body ng-controller="GameController">
-    <button ng-click="getRandomNumberList()">Get Random Number and List</button>
-    <p>Target Number: {{ targetNumber }}</p>
-    <div class="random-number-list">
-        <div class="number-ball" ng-repeat="num in randomNumberList track by $index">{{ num }}</div>
+    <h3>Enter 7 Random Numbers</h3>
+    <div class="input-container">
+        <div class="input-row">
+            <label ng-repeat="num in randomNumberList track by $index">Number {{$index + 1}}:
+                <input type="number" ng-model="randomNumberList[$index]" required>
+            </label>
+        </div>
     </div>
+
+    <h3>Enter Target Number</h3>
+    <div class="input-container">
+        <label for="targetNumber">Target Number:
+            <input type="number" id="targetNumber" ng-model="randomNumber" required>
+        </label>
+    </div>
+
+    <!-- game mode -->
+    <button ng-click="startGame('PVP')">Player vs Player</button>
+    <button ng-click="startGame('PVI')">Player vs IA</button>
 
     <h3>Timer</h3>
     <p class="timer" ng-show="timerRunning">Time left: {{ timeLeft }} seconds</p>
@@ -24,14 +39,22 @@
         <input type="number" id="player1" ng-model="player1Number">
         <button ng-click="submitPlayer1()">Submit Player 1</button>
     </div>
-    <div>
+
+    <br><br>
+
+    <div ng-if="!isPlayerVsIA">
         <label for="player2">Player 2:</label>
         <input type="number" id="player2" ng-model="player2Number">
         <button ng-click="submitPlayer2()">Submit Player 2</button>
     </div>
 
-    <h3>Result</h3>
+    <!-- display IA number -->
+    <div ng-if="isPlayerVsIA">
+        <h3>AI's Number: {{ player2Number }}</h3>
+    </div>
+
     <div class="winner-announcement" ng-if="winner">
+        <h3>Result</h3>
         Player with the closest number: {{ winner }}
     </div>
 
@@ -43,6 +66,14 @@
 
     <div class="winner-announcement">
         {{ actualWinner }}
+    </div>
+
+    <!-- display IA conbinations -->
+    <div ng-if="isPlayerVsIA && combinations.length > 0">
+        <h3>AI Combinations</h3>
+        <div ng-repeat="comb in combinations">
+            <p>Value: {{ comb.value }}, Combination: {{ comb.expression }}</p>
+        </div>
     </div>
 </body>
 </html>

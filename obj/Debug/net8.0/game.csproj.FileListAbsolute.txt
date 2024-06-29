@@ -26,9 +26,9 @@ D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\g
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.game.props
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\staticwebassets.pack.json
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\scopedcss\bundle\game.styles.css
-D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\game.csproj.Up2Date
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\game.dll
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\refint\game.dll
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\game.pdb
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\game.genruntimeconfig.cache
 D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\ref\game.dll
+D:\Studies\ITU\S4\INF - Programmation\AngularJS-C#\des-chiffres-et-des-lettres\game\obj\Debug\net8.0\game.csproj.CopyComplete
